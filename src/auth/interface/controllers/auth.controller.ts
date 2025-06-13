@@ -19,7 +19,7 @@ export class authControllers {
       const token = generateJWT(status.user?.id);
 
       if (deviceType === "mobile") {
-        return res.status(200).json({ sessionToken: token, msg: "acceso concedido" });
+        return res.status(200).json({ token: token, msg: "acceso concedido" });
       } else {
         return res.cookie("user_session", token, { httpOnly: true, secure: true, sameSite: "strict" });
       }
@@ -35,7 +35,7 @@ export class authControllers {
 
   async getUser(req: Request, res: Response): Promise<Response> {
     try {
-      const token = req.headers.authorization?.split(" ")[1];
+      const token = req.headers.authorization;
 
       console.log(token);
 
